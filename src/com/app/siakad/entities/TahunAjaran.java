@@ -77,4 +77,29 @@ public class TahunAjaran extends KoneksiDB{
             JOptionPane.showMessageDialog(null, "Error method delete() : " + ex);
         }
     }
+    
+    public String[] KeyTahunAjaran, Thajaran;
+    public void listThajaran(){
+        try{
+            conn = getConnection();
+            query = "select * from tbthajaran";
+            stat = conn.prepareStatement(query);
+            res = stat.executeQuery(query);
+            int i = 1;
+            while(res.next()){
+                Thajaran[i] = res.getString(2);
+                i++;
+            }
+            res.first();
+            KeyTahunAjaran = new String[i+1];
+            for(int x=1 ; x<i ; x++){
+                KeyTahunAjaran[x] = res.getString(1);
+                res.next();
+            }
+            stat.close();
+        } catch (SQLException ex) {
+            System.out.println("Error Method listThajaran : "+ex);
+        }
+    }
+    
 }
