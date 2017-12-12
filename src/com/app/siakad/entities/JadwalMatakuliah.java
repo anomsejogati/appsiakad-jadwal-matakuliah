@@ -101,6 +101,28 @@ public class JadwalMatakuliah extends KoneksiDB{
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-   
+   public String[] KeyJadwalmatkul, Jadwalmk;
+    public void listJadwalmk(){
+        try{
+            conn = getConnection();
+            query = "select * from tbjadwalmk";
+            stat = conn.prepareStatement(query);
+            res = stat.executeQuery(query);
+            int i = 1;
+            while(res.next()){
+                Jadwalmk[i] = res.getString(2);
+                i++;
+            }
+            res.first();
+            KeyJadwalmatkul = new String[i+1];
+            for(int x=1 ; x<i ; x++){
+                KeyJadwalmatkul[x] = res.getString(1);
+                res.next();
+            }
+            stat.close();
+        } catch (SQLException ex) {
+            System.out.println("Error Method listJadwalmk : "+ex);
+        }
+    }
 }
 
