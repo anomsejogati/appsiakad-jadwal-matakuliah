@@ -122,5 +122,28 @@ public class Dosen extends KoneksiDB{
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+    public String[] KeyDosen, Dosen;
+    public void listDosen(){
+        try{
+            conn = getConnection();
+            query = "select * from tbdosen";
+            stat = conn.prepareStatement(query);
+            res = stat.executeQuery(query);
+            int i = 1;
+            while(res.next()){
+                Dosen[i] = res.getString(2);
+                i++;
+            }
+            res.first();
+            KeyDosen = new String[i+1];
+            for(int x=1 ; x<i ; x++){
+                KeyDosen[x] = res.getString(1);
+                res.next();
+            }
+            stat.close();
+        } catch (SQLException ex) {
+            System.out.println("Error Method listDosen : "+ex);
+        }
+    }
    
 }
