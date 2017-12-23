@@ -100,5 +100,27 @@ public class MataKuliah extends KoneksiDB{
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
+    public String[] KeyMatakuliah, Matakuliah;
+    public void listMatakuliah(){
+        try{
+            conn = getConnection();
+            query = "select * from tbMatakuliah";
+            stat = conn.prepareStatement(query);
+            res = stat.executeQuery(query);
+            int i = 1;
+            while(res.next()){
+                Matakuliah[i] = res.getString(2);
+                i++;
+            }
+            res.first();
+            KeyMatakuliah = new String[i+1];
+            for(int x=1 ; x<i ; x++){
+                KeyMatakuliah[x] = res.getString(1);
+                res.next();
+            }
+            stat.close();
+        } catch (SQLException ex) {
+            System.out.println("Error Method listMatakuliah : "+ex);
+        }
+    }
 }
